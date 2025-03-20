@@ -35,7 +35,12 @@ bitcoin-cli regtest createwallet "treasurewallet"
 # Generate an address for mining in the treasure wallet
 # STUDENT TASK: Generate a new address in the treasurewallet
 # WRITE YOUR SOLUTION BELOW:
-TREASURE_ADDR=bcrt1q0yd7tzd25f3lm7l9f2e74886kplkqp4uru8ccx
+bitcoin-cli -regtest -rpcwallet=treasurewallet getnewaddress > treasure_addr.txt
+TREASURE_ADDR=$(cat treasure_addr.txt)
+check_cmd "Address generation"
+echo "Mining to address: $TREASURE_ADDR"
+
+#TREASURE_ADDR=bcrt1q0yd7tzd25f3lm7l9f2e74886kplkqp4uru8ccx
 check_cmd "Address generation"
 echo "Mining to address: $TREASURE_ADDR"
 
@@ -49,9 +54,9 @@ echo "-----------------------------------------"
 echo "Check your wallet balance to see what resources you have to start"
 # STUDENT TASK: Get the balance of btrustwallet
 # WRITE YOUR SOLUTION BELOW:
-bitcoin-cli -regtest -rpcwallet=btrustwallet getbalance
+BALANCE=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getbalance)
 
-BALANCE=0.00000000
+#BALANCE=0.00000000
 check_cmd "Balance check"
 echo "Your starting balance: $BALANCE BTC"
 
@@ -64,17 +69,23 @@ echo "Generate one of each address type (legacy, p2sh-segwit, bech32, bech32m)"
 # STUDENT TASK: Generate addresses of each type
 # WRITE YOUR SOLUTION BELOW:
 
-LEGACY_ADDR=mzuzwMjEFynPy2YZwc4yExj6LhJEEVTCP8
+#LEGACY_ADDR=mzuzwMjEFynPy2YZwc4yExj6LhJEEVTCP8
 check_cmd "Legacy address generation"
+LEGACY_ADDR=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getnewaddress "legacy" legacy)
 
-P2SH_ADDR=2N29AnrQhdckEb4KR3vqRoZJBMQMMixGYup
+#P2SH_ADDR=2N29AnrQhdckEb4KR3vqRoZJBMQMMixGYup
 check_cmd "P2SH address generation"
+P2SH_ADDR=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getnewaddress "p2sh" p2sh-segwit)
 
-SEGWIT_ADDR=bcrt1qnl07jrt7tsfmul7rp0utw8a48d2hvqa2m7997l
+#SEGWIT_ADDR=bcrt1qnl07jrt7tsfmul7rp0utw8a48d2hvqa2m7997l
 check_cmd "SegWit address generation"
+SEGWIT_ADDR=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getnewaddress "bech32" bech32)
 
-TAPROOT_ADDR=bcrt1pjfxldj2hvgudcu0ywyueq3ttf9p5qcq4mnhr5w0n5ahkqrtdrqtqf0fetq
+
+#TAPROOT_ADDR=bcrt1pjfxldj2hvgudcu0ywyueq3ttf9p5qcq4mnhr5w0n5ahkqrtdrqtqf0fetq
 check_cmd "Taproot address generation"
+TAPROOT_ADDR=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getnewaddress "taproot" bech32m)
+
 
 echo "Your exploration addresses:"
 echo "- Legacy treasure map: $LEGACY_ADDR"
@@ -117,6 +128,7 @@ echo "--------------------------------------------"
 echo "To ensure the P2SH vault is secure, verify it's a valid Bitcoin address"
 # STUDENT TASK: Validate the P2SH address
 # WRITE YOUR SOLUTION BELOW:
+bitcoin-cli -regtest validateaddress $P2SH_ADDR | jq -r '.isvalid'
 P2SH_VALID=
 check_cmd "Address validation"
 echo "P2SH vault validation: $P2SH_VALID"
