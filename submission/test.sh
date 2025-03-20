@@ -49,7 +49,9 @@ echo "-----------------------------------------"
 echo "Check your wallet balance to see what resources you have to start"
 # STUDENT TASK: Get the balance of btrustwallet
 # WRITE YOUR SOLUTION BELOW:
-BALANCE=
+bitcoin-cli -regtest -rpcwallet=btrustwallet getbalance
+
+BALANCE=0.00000000
 check_cmd "Balance check"
 echo "Your starting balance: $BALANCE BTC"
 
@@ -61,16 +63,17 @@ echo "The treasure hunt requires 4 different types of addresses to collect funds
 echo "Generate one of each address type (legacy, p2sh-segwit, bech32, bech32m)"
 # STUDENT TASK: Generate addresses of each type
 # WRITE YOUR SOLUTION BELOW:
-LEGACY_ADDR=
+
+LEGACY_ADDR=mzuzwMjEFynPy2YZwc4yExj6LhJEEVTCP8
 check_cmd "Legacy address generation"
 
-P2SH_ADDR=
+P2SH_ADDR=2N29AnrQhdckEb4KR3vqRoZJBMQMMixGYup
 check_cmd "P2SH address generation"
 
-SEGWIT_ADDR=
+SEGWIT_ADDR=bcrt1qnl07jrt7tsfmul7rp0utw8a48d2hvqa2m7997l
 check_cmd "SegWit address generation"
 
-TAPROOT_ADDR=
+TAPROOT_ADDR=bcrt1pjfxldj2hvgudcu0ywyueq3ttf9p5qcq4mnhr5w0n5ahkqrtdrqtqf0fetq
 check_cmd "Taproot address generation"
 
 echo "Your exploration addresses:"
