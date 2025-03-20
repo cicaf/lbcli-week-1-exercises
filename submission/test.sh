@@ -23,19 +23,19 @@ echo "Create a wallet named 'btrustwallet' to track your Bitcoin exploration"
 # STUDENT TASK: Use bitcoin-cli to create a wallet named "btrustwallet"
 # WRITE YOUR SOLUTION BELOW:
 bitcoin-cli -regtest createwallet "btrustwallet"
-bitcoin-cli createwallet "btrustwallet"
+
 
 # Create a second wallet that will hold the treasure
 echo "Now, create another wallet called 'treasurewallet' to fund your adventure"
 # STUDENT TASK: Create another wallet called "treasurewallet"
 # WRITE YOUR SOLUTION BELOW:
 bitcoin-cli regtest createwallet "treasurewallet"
-bitcoin-cli createwallet "treasurewallet"
+
 
 # Generate an address for mining in the treasure wallet
 # STUDENT TASK: Generate a new address in the treasurewallet
 # WRITE YOUR SOLUTION BELOW:
-TREASURE_ADDR=
+TREASURE_ADDR=bcrt1q0yd7tzd25f3lm7l9f2e74886kplkqp4uru8ccx
 check_cmd "Address generation"
 echo "Mining to address: $TREASURE_ADDR"
 
